@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이미지 생성기</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #ff6b35;
+      text-align: center;
+    }
+    canvas {
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      display: block;
+      margin: 20px auto;
+    }
+    button {
+      background: #ff6b35;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      display: block;
+      margin: 10px auto;
+    }
+    button:hover {
+      background: #e55a2b;
+    }
+    .info {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🥭 MangoRockets 이미지 생성기</h1>
+
+  <div class="card">
+    <h2>Favicon (32x32)</h2>
+    <canvas id="faviconCanvas" width="32" height="32"></canvas>
+    <button onclick="downloadFavicon()">favicon.ico 다운로드</button>
+    <div class="info">
+      <strong>사용 방법:</strong> 다운로드 후 favicon.ico로 이름을 변경하여 루트 디렉토리에 배치하세요.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>OG Image (1200x630)</h2>
+    <canvas id="ogCanvas" width="1200" height="630"></canvas>
+    <button onclick="downloadOGImage()">og-image.png 다운로드</button>
+    <div class="info">
+      <strong>사용 방법:</strong> 다운로드 후 assets/images/ 폴더에 배치하세요.
+    </div>
+  </div>
+
+  <script>
+    // Draw Favicon
+    function drawFavicon() {
+      const canvas = document.getElementById('faviconCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Background
+      ctx.fillStyle = '#ff6b35';
+      ctx.fillRect(0, 0, 32, 32);
+
+      // Mango
+      ctx.fillStyle = '#ffc107';
+      ctx.beginPath();
+      ctx.ellipse(16, 18, 10, 12, 0, 0, 2 * Math.PI);
+      ctx.fill();
+
+      // Highlight
+      ctx.fillStyle = '#ffffff';
+      ctx.globalAlpha = 0.4;
+      ctx.beginPath();
+      ctx.ellipse(13, 15, 3, 5, 0, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      // Leaf
+      ctx.fillStyle = '#4caf50';
+      ctx.beginPath();
+      ctx.moveTo(16, 8);
+      ctx.quadraticCurveTo(12, 6, 10, 4);
+      ctx.quadraticCurveTo(12, 5, 16, 8);
+      ctx.fill();
+    }
+
+    // Draw OG Image
+    function drawOGImage() {
+      const canvas = document.getElementById('ogCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Gradient background
+      const gradient = ctx.createLinearGradient(0, 0, 1200, 630);
+      gradient.addColorStop(0, '#ff6b35');
+      gradient.addColorStop(1, '#ff9800');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 1200, 630);
+
+      // Large mango
+      ctx.fillStyle = '#ffc107';
+      ctx.beginPath();
+      ctx.ellipse(300, 315, 120, 150, 0, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffeb3b';
+      ctx.beginPath();
+      ctx.ellipse(300, 305, 100, 130, 0, 0, 2 * Math.PI);
+      ctx.fill();
+
+      // Shine
+      ctx.fillStyle = '#ffffff';
+      ctx.globalAlpha = 0.3;
+      ctx.beginPath();
+      ctx.ellipse(270, 270, 30, 50, 0, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      // Leaf
+      ctx.fillStyle = '#4caf50';
+      ctx.beginPath();
+      ctx.moveTo(300, 150);
+      ctx.quadraticCurveTo(250, 130, 230, 100);
+      ctx.quadraticCurveTo(250, 120, 300, 150);
+      ctx.fill();
+
+      // Text
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 80px sans-serif';
+      ctx.fillText('MangoRockets', 500, 280);
+
+      ctx.font = '50px sans-serif';
+      ctx.fillText('무료 온라인 도구 모음', 500, 350);
+
+      ctx.font = '35px sans-serif';
+      ctx.globalAlpha = 0.9;
+      ctx.fillText('텍스트 분석 • 디데이 계산 • QR코드 생성', 500, 410);
+      ctx.fillText('색상 변환 • 비밀번호 생성', 500, 455);
+      ctx.globalAlpha = 1;
+    }
+
+    // Download Favicon
+    function downloadFavicon() {
+      const canvas = document.getElementById('faviconCanvas');
+      canvas.toBlob(function(blob) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'favicon.png';
+        link.click();
+        URL.revokeObjectURL(url);
+        alert('다운로드 후 favicon.ico로 이름을 변경하세요!');
+      });
+    }
+
+    // Download OG Image
+    function downloadOGImage() {
+      const canvas = document.getElementById('ogCanvas');
+      canvas.toBlob(function(blob) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'og-image.png';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    // Initialize
+    drawFavicon();
+    drawOGImage();
+  </script>
+</body>
+</html>

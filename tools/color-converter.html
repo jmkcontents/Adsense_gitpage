@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>색상 코드 변환기 | MangoRockets Tools</title>
+  <meta name="description" content="HEX, RGB, HSL 색상 코드를 상호 변환합니다. 컬러 피커로 원하는 색상을 선택하고 다양한 형식의 코드를 복사하세요.">
+  <meta name="keywords" content="색상 변환기, HEX RGB 변환, 컬러 코드, 색상 코드, 컬러 피커">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="색상 코드 변환기 | MangoRockets Tools">
+  <meta property="og:description" content="HEX, RGB, HSL 색상 코드를 상호 변환합니다. 컬러 피커로 원하는 색상을 선택하고 다양한 형식의 코드를 복사하세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mangorockets.com/tools/color-converter.html">
+  <meta property="og:image" content="https://mangorockets.com/assets/images/og-image.png">
+
+  <link rel="canonical" href="https://mangorockets.com/tools/color-converter.html">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/" class="logo">🥭 MangoRockets Tools</a>
+      <ul class="nav-links">
+        <li><a href="/">홈</a></li>
+        <li><a href="/about.html">소개</a></li>
+        <li><a href="/privacy.html">개인정보처리방침</a></li>
+        <li><a href="/terms.html">이용약관</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tool-title">
+      <h1>🎨 색상 코드 변환기</h1>
+      <p class="text-muted">HEX, RGB, HSL 색상 코드를 상호 변환하세요</p>
+    </div>
+
+    <div class="tool-container">
+      <!-- Color Picker -->
+      <div class="form-group">
+        <label for="colorPicker">컬러 피커</label>
+        <input type="color" id="colorPicker" value="#ff6b35" style="width: 100%; height: 60px; cursor: pointer;">
+      </div>
+
+      <!-- Color Preview -->
+      <div class="color-preview" id="colorPreview"></div>
+
+      <!-- Color Code Inputs -->
+      <div class="form-group">
+        <label for="hexInput">HEX 색상 코드</label>
+        <div class="btn-group">
+          <input type="text" id="hexInput" placeholder="#RRGGBB" value="#ff6b35" style="flex: 1;">
+          <button class="btn btn-secondary" onclick="copyToClipboard('hexInput')">📋 복사</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="rgbInput">RGB 색상 코드</label>
+        <div class="btn-group">
+          <input type="text" id="rgbInput" placeholder="rgb(r, g, b)" value="rgb(255, 107, 53)" style="flex: 1;">
+          <button class="btn btn-secondary" onclick="copyToClipboard('rgbInput')">📋 복사</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="hslInput">HSL 색상 코드</label>
+        <div class="btn-group">
+          <input type="text" id="hslInput" placeholder="hsl(h, s%, l%)" value="hsl(16, 100%, 60%)" style="flex: 1;">
+          <button class="btn btn-secondary" onclick="copyToClipboard('hslInput')">📋 복사</button>
+        </div>
+      </div>
+
+      <!-- Recent Colors -->
+      <div id="recentColorsSection" class="hidden">
+        <h3>최근 사용한 색상</h3>
+        <div id="recentColors" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;"></div>
+      </div>
+    </div>
+
+    <!-- Tool Guide Section -->
+    <section class="tool-guide">
+      <h2>색상 코드 변환기 사용 방법</h2>
+      <p>
+        웹 디자인과 개발에서 색상을 표현하는 방법은 여러 가지가 있습니다.
+        이 도구를 사용하면 HEX, RGB, HSL 형식 간의 색상 코드를 쉽게 변환할 수 있습니다.
+        컬러 피커로 원하는 색상을 선택하거나, 입력 필드에 색상 코드를 직접 입력하면 자동으로 다른 형식으로 변환됩니다.
+        변환된 색상 코드 옆의 복사 버튼을 클릭하여 클립보드에 복사할 수 있습니다.
+      </p>
+      <p>
+        <strong>색상 코드 형식 설명:</strong> HEX(16진수) 코드는 #RRGGBB 형식으로 표현되며 HTML/CSS에서 가장 널리 사용됩니다.
+        RGB는 빨강(Red), 초록(Green), 파랑(Blue)의 세 가지 색상 채널을 0-255 범위의 숫자로 표현합니다.
+        HSL은 색조(Hue), 채도(Saturation), 명도(Lightness)로 색상을 표현하며, 색상을 직관적으로 조정할 때 유용합니다.
+      </p>
+      <p>
+        <strong>활용 분야:</strong> 웹 개발에서는 주로 HEX 코드를 사용하며, 디자인 툴에서는 RGB나 HSL을 선호하는 경우가 많습니다.
+        CSS에서는 세 가지 형식을 모두 사용할 수 있으므로, 상황에 맞게 적절한 형식을 선택하여 사용하세요.
+        인쇄 작업에서는 CMYK 색상 모델을 사용하지만, 웹에서는 RGB 기반의 색상 코드를 사용합니다.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="/">홈</a></li>
+        <li><a href="/about.html">소개</a></li>
+        <li><a href="/privacy.html">개인정보처리방침</a></li>
+        <li><a href="/terms.html">이용약관</a></li>
+      </ul>
+      <div class="footer-bottom">
+        <p>&copy; 2024 MangoRockets Tools. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-content">
+      <p>이 사이트는 Google AdSense를 통해 광고를 게재하며, 이를 위해 쿠키를 사용합니다. 계속 이용하시면 쿠키 사용에 동의하는 것으로 간주됩니다.</p>
+      <button class="btn btn-primary" onclick="acceptCookies()">동의</button>
+    </div>
+  </div>
+
+  <script src="/assets/js/color-converter.js"></script>
+</body>
+</html>

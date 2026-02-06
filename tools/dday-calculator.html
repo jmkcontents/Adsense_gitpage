@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>디데이 계산기 | MangoRockets Tools</title>
+  <meta name="description" content="중요한 날짜까지 남은 날짜를 계산하고, 과거 날짜로부터 경과한 시간을 확인하세요. 시험, 기념일, 이벤트 등의 D-day를 쉽게 계산합니다.">
+  <meta name="keywords" content="디데이 계산기, D-day, 날짜 계산, 기념일, 시험일, 남은 날짜">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="디데이 계산기 | MangoRockets Tools">
+  <meta property="og:description" content="중요한 날짜까지 남은 날짜를 계산하고, 과거 날짜로부터 경과한 시간을 확인하세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mangorockets.com/tools/dday-calculator.html">
+  <meta property="og:image" content="https://mangorockets.com/assets/images/og-image.png">
+
+  <link rel="canonical" href="https://mangorockets.com/tools/dday-calculator.html">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/" class="logo">🥭 MangoRockets Tools</a>
+      <ul class="nav-links">
+        <li><a href="/">홈</a></li>
+        <li><a href="/about.html">소개</a></li>
+        <li><a href="/privacy.html">개인정보처리방침</a></li>
+        <li><a href="/terms.html">이용약관</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tool-title">
+      <h1>📅 디데이 계산기</h1>
+      <p class="text-muted">중요한 날짜까지 남은 시간을 계산하세요</p>
+    </div>
+
+    <div class="tool-container">
+      <!-- Date Input -->
+      <div class="form-group">
+        <label for="targetDate">목표 날짜</label>
+        <input type="date" id="targetDate">
+      </div>
+
+      <!-- Quick Preset Buttons -->
+      <div class="form-group">
+        <label>빠른 설정</label>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="setPreset(100)">100일 후</button>
+          <button class="btn btn-outline" onclick="setPreset(365)">1년 후</button>
+          <button class="btn btn-outline" onclick="setGraduationDate()">졸업식</button>
+          <button class="btn btn-outline" onclick="setNewYear()">새해</button>
+        </div>
+      </div>
+
+      <!-- Calculate Button -->
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" onclick="calculateDday()">계산하기</button>
+      </div>
+
+      <!-- Results Display -->
+      <div class="result-box" id="results" style="display: none;">
+        <h3 id="ddayDisplay" style="text-align: center; font-size: 2rem; color: var(--primary-color); margin-bottom: 1.5rem;">D-365</h3>
+
+        <div class="result-item">
+          <span class="result-label">선택한 날짜</span>
+          <span class="result-value" id="selectedDate">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">오늘 날짜</span>
+          <span class="result-value" id="todayDate">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">기간 (년/월/일)</span>
+          <span class="result-value" id="breakdown">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">총 일수</span>
+          <span class="result-value" id="totalDays">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">총 주수</span>
+          <span class="result-value" id="totalWeeks">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">총 시간</span>
+          <span class="result-value" id="totalHours">-</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tool Guide Section -->
+    <section class="tool-guide">
+      <h2>디데이 계산기 사용 방법</h2>
+      <p>
+        디데이(D-Day)는 특정한 목표 날짜를 의미하며, 그 날까지 남은 날짜 또는 경과한 날짜를 계산하는 데 사용됩니다.
+        이 도구를 사용하면 시험일, 기념일, 프로젝트 마감일, 이벤트 날짜 등 중요한 날까지 남은 시간을 정확하게 확인할 수 있습니다.
+        목표 날짜를 선택하고 '계산하기' 버튼을 클릭하면, 오늘부터 해당 날짜까지의 기간을 다양한 단위로 표시합니다.
+      </p>
+      <p>
+        <strong>한국의 디데이 표기법:</strong> 한국에서는 D-Day를 기준으로 D-7(7일 전), D-1(하루 전), D-Day(당일),
+        D+1(하루 후), D+7(7일 후) 형식으로 표현합니다. 수험생들은 시험일을 D-Day로 설정하여 학습 계획을 세우고,
+        군 복무자는 전역일을 기준으로 남은 복무 기간을 계산합니다. 연인들은 처음 만난 날을 기준으로 100일, 200일 등의 기념일을 챙깁니다.
+      </p>
+      <p>
+        <strong>활용 예시:</strong> 대학수학능력시험까지 남은 날짜 계산, 군 전역일까지 남은 복무 일수 확인,
+        결혼 기념일이나 생일 등 특별한 날 계산, 프로젝트 마감일 관리, 여행 출발일 카운트다운 등
+        다양한 상황에서 디데이 계산기를 활용할 수 있습니다. 빠른 설정 버튼을 사용하면 자주 사용하는 날짜를 쉽게 설정할 수 있습니다.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="/">홈</a></li>
+        <li><a href="/about.html">소개</a></li>
+        <li><a href="/privacy.html">개인정보처리방침</a></li>
+        <li><a href="/terms.html">이용약관</a></li>
+      </ul>
+      <div class="footer-bottom">
+        <p>&copy; 2024 MangoRockets Tools. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-content">
+      <p>이 사이트는 Google AdSense를 통해 광고를 게재하며, 이를 위해 쿠키를 사용합니다. 계속 이용하시면 쿠키 사용에 동의하는 것으로 간주됩니다.</p>
+      <button class="btn btn-primary" onclick="acceptCookies()">동의</button>
+    </div>
+  </div>
+
+  <script src="/assets/js/dday-calculator.js"></script>
+</body>
+</html>

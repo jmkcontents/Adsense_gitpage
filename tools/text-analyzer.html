@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>텍스트 분석기 | MangoRockets Tools</title>
+  <meta name="description" content="텍스트의 글자 수, 바이트 수, 단어 수를 실시간으로 분석합니다. 한글 텍스트를 위한 UTF-8 및 EUC-KR 바이트 계산을 지원합니다.">
+  <meta name="keywords" content="텍스트 분석기, 글자 수 세기, 바이트 계산, 단어 수, 문장 수">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="텍스트 분석기 | MangoRockets Tools">
+  <meta property="og:description" content="텍스트의 글자 수, 바이트 수, 단어 수를 실시간으로 분석합니다. UTF-8 및 EUC-KR 바이트 계산 지원.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mangorockets.com/tools/text-analyzer.html">
+  <meta property="og:image" content="https://mangorockets.com/assets/images/og-image.png">
+
+  <link rel="canonical" href="https://mangorockets.com/tools/text-analyzer.html">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/" class="logo">🥭 MangoRockets Tools</a>
+      <ul class="nav-links">
+        <li><a href="/">홈</a></li>
+        <li><a href="/about.html">소개</a></li>
+        <li><a href="/privacy.html">개인정보처리방침</a></li>
+        <li><a href="/terms.html">이용약관</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tool-title">
+      <h1>📝 텍스트 분석기</h1>
+      <p class="text-muted">텍스트의 다양한 정보를 실시간으로 분석하세요</p>
+    </div>
+
+    <div class="tool-container">
+      <!-- Text Input -->
+      <div class="form-group">
+        <label for="textInput">텍스트 입력</label>
+        <textarea id="textInput" placeholder="분석할 텍스트를 입력하세요..." style="min-height: 200px;"></textarea>
+      </div>
+
+      <!-- Analysis Results -->
+      <div class="result-box">
+        <h3>분석 결과</h3>
+
+        <div class="result-item">
+          <span class="result-label">공백 포함 글자 수</span>
+          <span class="result-value" id="charWithSpace">0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">공백 제외 글자 수</span>
+          <span class="result-value" id="charWithoutSpace">0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">바이트 (UTF-8)</span>
+          <span class="result-value" id="bytesUTF8">0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">바이트 (EUC-KR)</span>
+          <span class="result-value" id="bytesEUCKR">0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">단어 수</span>
+          <span class="result-value" id="wordCount">0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">문장 수</span>
+          <span class="result-value" id="sentenceCount">0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">줄 수</span>
+          <span class="result-value" id="lineCount">0</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">문단 수</span>
+          <span class="result-value" id="paragraphCount">0</span>
+        </div>
+      </div>
+
+      <!-- Utility Buttons -->
+      <div class="form-group mt-2">
+        <label>텍스트 편집</label>
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="removeAllSpaces()">공백 모두 제거</button>
+          <button class="btn btn-secondary" onclick="trimSpaces()">앞뒤 공백 제거</button>
+          <button class="btn btn-secondary" onclick="copyText()">텍스트 복사</button>
+        </div>
+      </div>
+
+      <!-- Copy Analysis Button -->
+      <div class="form-group">
+        <button class="btn btn-success btn-block" onclick="copyAnalysis()">📋 분석 결과 복사</button>
+      </div>
+    </div>
+
+    <!-- Tool Guide Section -->
+    <section class="tool-guide">
+      <h2>텍스트 분석기 사용 방법</h2>
+      <p>
+        텍스트 분석기는 입력한 텍스트의 다양한 통계 정보를 실시간으로 제공합니다.
+        텍스트 입력란에 내용을 입력하거나 붙여넣으면 자동으로 글자 수, 바이트 수, 단어 수, 문장 수 등이 계산됩니다.
+        블로그 포스트 작성, SNS 게시글 글자 수 제한 확인, 문서 통계 파악 등 다양한 용도로 활용할 수 있습니다.
+        특히 한글 텍스트에 대한 UTF-8 및 EUC-KR 인코딩 방식의 바이트 수를 모두 계산하여 데이터베이스 필드 크기나 SMS 전송 시 유용합니다.
+      </p>
+      <p>
+        <strong>글자 수와 바이트 수의 차이:</strong> 글자 수는 문자의 개수를 세는 것이며, 바이트 수는 해당 텍스트가 컴퓨터에서 차지하는 용량입니다.
+        영문자와 숫자는 UTF-8에서 1바이트, 한글은 3바이트를 차지합니다. EUC-KR 인코딩에서는 한글이 2바이트를 차지합니다.
+        SMS 문자 메시지나 데이터베이스 VARCHAR 필드 등에서는 바이트 수 제한이 있으므로, 한글 텍스트를 다룰 때 바이트 수를 확인하는 것이 중요합니다.
+      </p>
+      <p>
+        <strong>활용 예시:</strong> 블로그 글 작성 시 목표 글자 수 확인, 트위터나 인스타그램 등 글자 수 제한이 있는 SNS 게시글 작성,
+        학교 과제나 논문의 분량 확인, SMS 문자 메시지 길이 계산, 데이터베이스 필드 크기 설계 시 참고 자료,
+        번역 작업 시 원문과 번역문의 분량 비교 등 다양한 상황에서 텍스트 분석기를 활용할 수 있습니다.
+        '공백 모두 제거' 기능으로 불필요한 공백을 정리하거나, '분석 결과 복사' 기능으로 통계 정보를 손쉽게 공유할 수 있습니다.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="/">홈</a></li>
+        <li><a href="/about.html">소개</a></li>
+        <li><a href="/privacy.html">개인정보처리방침</a></li>
+        <li><a href="/terms.html">이용약관</a></li>
+      </ul>
+      <div class="footer-bottom">
+        <p>&copy; 2024 MangoRockets Tools. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-content">
+      <p>이 사이트는 Google AdSense를 통해 광고를 게재하며, 이를 위해 쿠키를 사용합니다. 계속 이용하시면 쿠키 사용에 동의하는 것으로 간주됩니다.</p>
+      <button class="btn btn-primary" onclick="acceptCookies()">동의</button>
+    </div>
+  </div>
+
+  <script src="/assets/js/text-analyzer.js"></script>
+</body>
+</html>

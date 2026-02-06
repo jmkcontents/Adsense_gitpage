@@ -1,0 +1,18 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="100" fill="#ff6b35"/>
+
+  <!-- Mango shape -->
+  <ellipse cx="100" cy="110" rx="45" ry="55" fill="#ffc107"/>
+  <ellipse cx="100" cy="105" rx="40" ry="50" fill="#ffeb3b"/>
+
+  <!-- Leaf -->
+  <path d="M 100 50 Q 85 45 80 35 Q 85 40 100 50" fill="#4caf50"/>
+
+  <!-- Shine effect -->
+  <ellipse cx="85" cy="90" rx="12" ry="18" fill="#ffffff" opacity="0.4"/>
+
+  <!-- Rocket flame -->
+  <path d="M 95 160 L 100 175 L 105 160 Z" fill="#ff6b35"/>
+  <path d="M 97 165 L 100 175 L 103 165 Z" fill="#ff9800"/>
+</svg>
